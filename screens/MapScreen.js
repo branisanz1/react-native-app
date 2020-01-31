@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { fetchVelibs } from "../exercices/exercice6";
+import { VelibContext } from "../exercices/exercice-context";
 
 export default function MapScreen() {
+  const velibContext = useContext(VelibContext);
   const [coordinateStation, setCoordinateStation] = useState(false);
 
   useEffect(() => {
-    fetchVelibs().then(data => {
-      setCoordinateStation(data);
-    });
+    setCoordinateStation(velibContext);
   }, []);
 
   return (
