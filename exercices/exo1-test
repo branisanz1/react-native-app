@@ -1,0 +1,58 @@
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import Animated from "react-native-reanimated";
+
+export default function Exercice1() {
+  return (
+    <>
+      <View style={styles.container}>
+            <Animated.View>
+                <Text>Descend Msoi</Text>
+            </Animated.View>
+      </View>
+      <View style={styles2.container2}>
+        <Text>Cache moi</Text>
+      </View>
+    </>
+  );
+}
+
+cycleAnimation(){
+    Animated.sequence([
+        Animated.timing(this.StaticRange.height, {
+            toValue: 1,
+            duration: 2000,
+        }),
+        Animated.timing(this.state.height, {
+            toValue : 0,
+            duration:2000,
+        })
+    ]).start(event =>{
+        if(event.finished){
+            this.cycleAnimation();
+        }
+    })
+}
+
+componentDidMount(){
+    this.cycleAnimation();
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "red",
+    color: "black",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
+
+const styles2 = StyleSheet.create({
+  container2: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
