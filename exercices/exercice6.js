@@ -10,6 +10,6 @@ export const getPosition = () => {
 
 export const fetchVelibs = async () => {
   const position = await getPosition().catch(error => console.log(error));
-  const url = `https://opendata.paris.fr/api/records/1.0/search/?dataset=velib-disponibilite-en-temps-reel&geofilter.distance=${position.coords.latitude},${position.coords.longitude},10000`;
+  const url = `https://opendata.paris.fr/api/records/1.0/search/?dataset=velib-disponibilite-en-temps-reel&rows=50&geofilter.distance=${position.coords.latitude},${position.coords.longitude},10000`;
   return getCoordinate(url);
 };

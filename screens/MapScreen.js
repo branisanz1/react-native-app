@@ -5,11 +5,7 @@ import { VelibContext } from "../exercices/exercice-context";
 
 export default function MapScreen() {
   const velibContext = useContext(VelibContext);
-  const [coordinateStation, setCoordinateStation] = useState(false);
-
-  useEffect(() => {
-    setCoordinateStation(velibContext);
-  }, []);
+  const coordinateStation = velibContext.velibs;
 
   return (
     <>

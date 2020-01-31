@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, FlatList, TouchableOpacity } from "react-native";
 import { fetchVelibs } from "../exercices/exercice6";
+import { VelibContext } from "../exercices/exercice-context";
 
 export default function ListScreen({ navigation }) {
-  const [velibs, setVelibs] = useState("");
+  const velibContext = useContext(VelibContext);
 
-  useEffect(() => {
-    fetchVelibs().then(data => {
-      setVelibs(data);
-    });
-  }, []);
-
+  const velibs = velibContext.velibs;
+  const velibFav = velibContext.velibsFavorites;
   return (
     <>
+      <Text style={styles.title}>Listes Stations Favorites</Text>
+
       <FlatList
-        style={styles.container}
+        style={styles.stationsListFav}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
@@ -30,7 +29,36 @@ export default function ListScreen({ navigation }) {
                 })
               }
             >
-              <Text> {item.name}</Text>
+              <Text>
+                {item.name} ({item.dist}m)
+              </Text>
+            </TouchableOpacity>
+          );
+        }}
+        data={velibFav}
+        keyExtractor={item => item.name}
+      />
+      <Text style={styles.title}>Listes</Text>
+      <FlatList
+        style={styles.stationsList}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ViewStation", {
+                  stationName: item.name,
+                  geo: item.geo,
+                  nbbike: item.nbbike,
+                  nbebike: item.nbebike,
+                  creditCard: item.creditcard,
+                  dist: item.dist,
+                  record_timestamp: new Date(item.recordTimestamp)
+                })
+              }
+            >
+              <Text>
+                {item.name} ({item.dist}m)
+              </Text>
             </TouchableOpacity>
           );
         }}
@@ -46,8 +74,15 @@ ListScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  stationsList: {
+    flex: 0.8,
     backgroundColor: "#fff"
+  },
+  stationsListFav: {
+    flex: 0.2,
+    backgroundColor: "green"
+  },
+  title: {
+    fontSize: 20
   }
 });

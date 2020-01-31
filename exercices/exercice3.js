@@ -30,6 +30,7 @@ export const getCoordinate = async url => {
     const responseJson = await response.json();
     const records = responseJson.records;
     const StationCoordinate = records.map(record => ({
+      id: record.fields.station_code,
       geo: record.fields.geo,
       name: record.fields.station_name,
       dist: Math.round(record.fields.dist),
