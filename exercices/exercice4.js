@@ -17,7 +17,7 @@ export default function ViewStation({ navigation }) {
   const dateFr =
     date.getDate() + " / " + date.getMonth() + 1 + " / " + date.getFullYear();
 
-  function _handlePress(name, geo, nbbike, nbebike, creditCard, dist, date) {
+  function _addToFav(name, geo, nbbike, nbebike, creditCard, dist, date) {
     const station = {
       name: name,
       geo: geo,
@@ -28,12 +28,14 @@ export default function ViewStation({ navigation }) {
       date: date
     };
     velibContext.addVelibToFav(station);
-    if (inFav == false) {
-      setInFav(true);
-    } else {
-      setInFav(false);
-    }
+    setInFav(true);
   }
+
+  function _deleteFav(name) {
+    velibContext.delVelibToFav(name);
+    setInFav(false);
+  }
+
   return (
     <>
       <MapView
@@ -67,23 +69,28 @@ export default function ViewStation({ navigation }) {
             : "💳 Achat de ticket: ❌"}
         </Text>
         <Text>📅 Mise a jour le {dateFr}</Text>
-        <Text
-          onPress={() =>
-            _handlePress(
-              nameStation,
-              geo,
-              nbbike,
-              nbebike,
-              creditCard,
-              dist,
-              dateFr
-            )
-          }
-        >
-          {inFav == false
-            ? "💚 Ajouter aux favoris"
-            : "❌ Supprimer aux favoris"}
-        </Text>
+
+        {inFav == false ? (
+          <Text
+            onPress={() =>
+              _addToFav(
+                nameStation,
+                geo,
+                nbbike,
+                nbebike,
+                creditCard,
+                dist,
+                dateFr
+              )
+            }
+          >
+            💚 Ajouter aux favoris
+          </Text>
+        ) : (
+          <Text onPress={() => _deleteFav(nameStation)}>
+            ❌ Supprimer aux favoris
+          </Text>
+        )}
       </View>
     </>
   );

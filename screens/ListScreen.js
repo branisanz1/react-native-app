@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, FlatList, TouchableOpacity } from "react-native";
-import { fetchVelibs } from "../exercices/exercice6";
 import { VelibContext } from "../exercices/exercice-context";
 
 export default function ListScreen({ navigation }) {
@@ -79,8 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   stationsListFav: {
-    flex: 0.2,
-    backgroundColor: "green"
+    flex: 0.2
   },
   title: {
     fontSize: 20

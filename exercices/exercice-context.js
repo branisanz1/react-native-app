@@ -15,21 +15,53 @@ export const VelibProvider = ({ children }) => {
   }, []);
 
   function addVelibToFav(station) {
-    setVelibFavorites([
-      ...velibsFavorites,
-      {
-        name: station.name,
-        geo: station.geo,
-        nbbike: station.nbbike,
-        nbebike: station.nbebike,
-        creditCard: station.creditCard,
-        dist: station.dist,
-        record_timestamp: station.date
+    var inArray = false;
+    for (var i = 0, len = velibsFavorites.length; i < len; i++) {
+      if (velibsFavorites[i]["name"] === station.name) {
+        inArray = true;
+        break;
       }
-    ]);
+    }
+    if (inArray == false) {
+      setVelibFavorites([
+        ...velibsFavorites,
+        {
+          name: station.name,
+          geo: station.geo,
+          nbbike: station.nbbike,
+          nbebike: station.nbebike,
+          creditCard: station.creditCard,
+          dist: station.dist,
+          record_timestamp: station.date
+        }
+      ]);
+    }
   }
+
+  function delVelibToFav(name) {
+    console.log(name);
+    var index = false;
+    for (var i = 0, len = velibsFavorites.length; i < len; i++) {
+      if (velibsFavorites[i]["name"] === name) {
+        index = i;
+        break;
+      }
+    }
+    console.log(velibsFavorites);
+
+    console.log(velibsFavorites);
+    if (index != false) {
+      velibsFavorites.splice(index, 1);
+      console.log(velibsFavorites);
+
+      setVelibFavorites([...velibsFavorites, velibsFavorites]);
+    }
+  }
+
   return (
-    <VelibContext.Provider value={{ velibs, velibsFavorites, addVelibToFav }}>
+    <VelibContext.Provider
+      value={{ velibs, velibsFavorites, addVelibToFav, delVelibToFav }}
+    >
       {children}
     </VelibContext.Provider>
   );
