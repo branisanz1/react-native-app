@@ -14,17 +14,17 @@ export const VelibProvider = ({ children }) => {
     });
   }, []);
 
-  function addVelibToFav(name, geo, nbbike, nbebike, creditCard, dist) {
-    console.log(name);
+  function addVelibToFav(station) {
     setVelibFavorites([
       ...velibsFavorites,
       {
-        name: name,
-        geo: geo,
-        nbbike: nbbike,
-        nbebike: nbebike,
-        creditCard: creditCard,
-        dist: dist
+        name: station.name,
+        geo: station.geo,
+        nbbike: station.nbbike,
+        nbebike: station.nbebike,
+        creditCard: station.creditCard,
+        dist: station.dist,
+        record_timestamp: station.date
       }
     ]);
   }

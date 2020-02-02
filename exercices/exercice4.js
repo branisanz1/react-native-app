@@ -14,19 +14,20 @@ export default function ViewStation({ navigation }) {
   const nbebike = navigation.getParam("nbebike");
   const creditCard = navigation.getParam("creditCard");
   const date = navigation.getParam("record_timestamp");
-
   const dateFr =
     date.getDate() + " / " + date.getMonth() + 1 + " / " + date.getFullYear();
 
-  function _handlePress(nameStation, geo, nbbike, nbebike, creditCard, dist) {
-    velibContext.addVelibToFav(
-      nameStation,
-      geo,
-      nbbike,
-      nbebike,
-      creditCard,
-      dist
-    );
+  function _handlePress(name, geo, nbbike, nbebike, creditCard, dist, date) {
+    const station = {
+      name: name,
+      geo: geo,
+      nbbike: nbbike,
+      nbebike: nbebike,
+      creditCard: creditCard,
+      dist: dist,
+      date: date
+    };
+    velibContext.addVelibToFav(station);
     if (inFav == false) {
       setInFav(true);
     } else {
@@ -68,7 +69,15 @@ export default function ViewStation({ navigation }) {
         <Text>📅 Mise a jour le {dateFr}</Text>
         <Text
           onPress={() =>
-            _handlePress(nameStation, geo, nbbike, nbebike, creditCard, dist)
+            _handlePress(
+              nameStation,
+              geo,
+              nbbike,
+              nbebike,
+              creditCard,
+              dist,
+              dateFr
+            )
           }
         >
           {inFav == false
